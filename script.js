@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const width = 4;
     let squares = [];
     let score = 0;
+    let hasWon = false;
 
     // Create the playing board
 
@@ -139,16 +140,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function combineRow() {
+        if (hasWon) return;
+
         for (let i = 0; i < 15; i++) {
             if (squares[i].innerHTML === squares[i + 1].innerHTML) {
                 let combinedTotal =
                     parseInt(squares[i].innerHTML) +
                     parseInt(squares[i + 1].innerHTML);
 
-                if (combinedTotal >= 2048) {
+                if (combinedTotal === 2048) {
+                    // Endret fra >= til ===
                     resultDisplay.innerHTML = "You Win!";
+                    hasWon = true;
                     document.removeEventListener("keydown", control);
-
                     return true;
                 }
 
@@ -169,10 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     parseInt(squares[i].innerHTML) +
                     parseInt(squares[i + width].innerHTML);
 
-                if (combinedTotal >= 2048) {
+                if (combinedTotal === 2048) {
+                    // Endret fra >= til ===
                     resultDisplay.innerHTML = "You Win!";
+                    hasWon = true;
                     document.removeEventListener("keydown", control);
-
                     return true;
                 }
 
@@ -203,50 +208,56 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keydown", control);
 
     function keyLeft() {
+        if (hasWon) return;
         moveLeft();
-        let hasWon = combineRow();
+        let wonGame = combineRow(); // Endret variabelnavn fra hasWon til wonGame
         moveLeft();
         generate();
-        if (!hasWon) {
+        if (!wonGame) {
             checkForWin();
         }
     }
 
     function keyRight() {
+        if (hasWon) return;
         moveRight();
-        let hasWon = combineRow();
+        let wonGame = combineRow(); // Endret variabelnavn fra hasWon til wonGame
         moveRight();
         generate();
-        if (!hasWon) {
+        if (!wonGame) {
             checkForWin();
         }
     }
 
     function keyUp() {
+        if (hasWon) return;
         moveUp();
-        let hasWon = combineColumn();
+        let wonGame = combineColumn(); // Endret variabelnavn fra hasWon til wonGame
         moveUp();
         generate();
-        if (!hasWon) {
+        if (!wonGame) {
             checkForWin();
         }
     }
 
     function keyDown() {
+        if (hasWon) return;
         moveDown();
-        let hasWon = combineColumn();
+        let wonGame = combineColumn(); // Endret variabelnavn fra hasWon til wonGame
         moveDown();
         generate();
-        if (!hasWon) {
+        if (!wonGame) {
             checkForWin();
         }
     }
 
     //check for the nr 2048 in the squares to win the game
     function checkForWin() {
+        if (hasWon) return;
         for (let i = 0; i < squares.length; i++) {
             if (squares[i].innerHTML == "2048") {
                 resultDisplay.innerHTML = "You Win!";
+                hasWon = true;
                 document.removeEventListener("keydown", control);
                 setTimeout(clear, 3000);
             }
@@ -255,6 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //check if there are no zero left
     function checkForGameOver() {
+        if (hasWon) return;
         let zeros = squares.filter((square) => square.innerHTML == 0);
         if (zeros.length === 0) {
             let gameOver = true;
