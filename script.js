@@ -22,11 +22,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //generate a new random number
     function generate() {
-        const randomNumber = Math.floor(Math.random() * squares.length);
-        if (squares[randomNumber].innerHTML == 0) {
-            squares[randomNumber].innerHTML = 2;
-            checkForGameOver();
-        } else generate();
+        let zeros = squares.filter((square) => square.innerHTML == 0);
+        if (zeros.length === 0) {
+            return;
+        }
+
+        const randomNumber = Math.floor(Math.random() * zeros.length);
+        if (zeros[randomNumber]) {
+            zeros[randomNumber].innerHTML = 2;
+        }
+        checkForGameOver();
     }
 
     function moveRight() {
@@ -139,6 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 let combinedTotal =
                     parseInt(squares[i].innerHTML) +
                     parseInt(squares[i + 1].innerHTML);
+
+                if (combinedTotal >= 2048) {
+                    resultDisplay.innerHTML = "You Win!";
+                    document.removeEventListener("keydown", control);
+
+                    return true;
+                }
+
                 squares[i].innerHTML = combinedTotal;
                 squares[i + 1].innerHTML = 0;
                 score += combinedTotal;
@@ -146,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         checkForWin();
+        return false;
     }
 
     function combineColumn() {
@@ -154,6 +168,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 let combinedTotal =
                     parseInt(squares[i].innerHTML) +
                     parseInt(squares[i + width].innerHTML);
+
+                if (combinedTotal >= 2048) {
+                    resultDisplay.innerHTML = "You Win!";
+                    document.removeEventListener("keydown", control);
+
+                    return true;
+                }
+
                 squares[i].innerHTML = combinedTotal;
                 squares[i + width].innerHTML = 0;
                 score += combinedTotal;
@@ -161,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
         checkForWin();
+        return false;
     }
 
     //asign functions to keys
@@ -181,30 +204,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function keyLeft() {
         moveLeft();
-        combineRow();
+        let hasWon = combineRow();
         moveLeft();
         generate();
+        if (!hasWon) {
+            checkForWin();
+        }
     }
 
     function keyRight() {
         moveRight();
-        combineRow();
+        let hasWon = combineRow();
         moveRight();
         generate();
+        if (!hasWon) {
+            checkForWin();
+        }
     }
 
     function keyUp() {
         moveUp();
-        combineColumn();
+        let hasWon = combineColumn();
         moveUp();
         generate();
+        if (!hasWon) {
+            checkForWin();
+        }
     }
 
     function keyDown() {
         moveDown();
-        combineColumn();
+        let hasWon = combineColumn();
         moveDown();
         generate();
+        if (!hasWon) {
+            checkForWin();
+        }
     }
 
     //check for the nr 2048 in the squares to win the game
@@ -220,16 +255,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //check if there are no zero left
     function checkForGameOver() {
-        let zeros = 0;
-        for (let i = 0; i < squares.length; i++) {
-            if (squares[i].innerHTML == 0) {
-                zeros++;
+        let zeros = squares.filter((square) => square.innerHTML == 0);
+        if (zeros.length === 0) {
+            let gameOver = true;
+            for (let i = 0; i < squares.length; i++) {
+                if (
+                    (i % 4 !== 3 &&
+                        squares[i].innerHTML === squares[i + 1]?.innerHTML) ||
+                    (i < 12 &&
+                        squares[i].innerHTML === squares[i + 4]?.innerHTML)
+                ) {
+                    gameOver = false;
+                    break;
+                }
             }
-        }
-        if (zeros === 0) {
-            resultDisplay.innerHTML = "You Lose!";
-            document.removeEventListener("keydown", control);
-            setTimeout(clear, 3000);
+            if (gameOver) {
+                resultDisplay.innerHTML = "You Lose!";
+                document.removeEventListener("keydown", control);
+            }
         }
     }
 
@@ -240,6 +283,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //add colours
     function addColours() {
         for (let i = 0; i < squares.length; i++) {
+            if (!squares[i]) {
+                console.error(`Square ${i} is not defined!`);
+                continue;
+            }
             if (squares[i].innerHTML == 0)
                 squares[i].style.backgroundColor = "#afa192";
             else if (squares[i].innerHTML == 2)
@@ -264,10 +311,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 squares[i].style.backgroundColor = "#beeaa5";
             else if (squares[i].innerHTML == 2048)
                 squares[i].style.backgroundColor = "#d7d4f0";
-            console.log("running");
         }
     }
-    addColours();
+
+    //  addColours();
 
     let myTimer = setInterval(addColours, 50);
+    console.log("Current squares:", squares);
+    console.log("Result display:", resultDisplay);
 });
