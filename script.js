@@ -300,29 +300,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 continue;
             }
             if (squares[i].innerHTML == 0)
-                squares[i].style.backgroundColor = "#afa192";
+                squares[i].style.backgroundColor = "#00ffaa";
             else if (squares[i].innerHTML == 2)
-                squares[i].style.backgroundColor = "#eee4da";
+                squares[i].style.backgroundColor = "#ff007f";
             else if (squares[i].innerHTML == 4)
-                squares[i].style.backgroundColor = "#ede0c8";
+                squares[i].style.backgroundColor = "#ffcc00";
             else if (squares[i].innerHTML == 8)
-                squares[i].style.backgroundColor = "#f2b179";
+                squares[i].style.backgroundColor = "#ff5733";
             else if (squares[i].innerHTML == 16)
-                squares[i].style.backgroundColor = "#ffcea4";
+                squares[i].style.backgroundColor = "#ff33ff";
             else if (squares[i].innerHTML == 32)
-                squares[i].style.backgroundColor = "#e8c064";
+                squares[i].style.backgroundColor = "#33ffcc";
             else if (squares[i].innerHTML == 64)
-                squares[i].style.backgroundColor = "#ffab6e";
+                squares[i].style.backgroundColor = "#ff5050";
             else if (squares[i].innerHTML == 128)
-                squares[i].style.backgroundColor = "#fd9982";
+                squares[i].style.backgroundColor = "#ffcc33";
             else if (squares[i].innerHTML == 256)
-                squares[i].style.backgroundColor = "#ead79c";
+                squares[i].style.backgroundColor = "#aaff00";
             else if (squares[i].innerHTML == 512)
-                squares[i].style.backgroundColor = "#76daff";
+                squares[i].style.backgroundColor = "#66ff66";
             else if (squares[i].innerHTML == 1024)
-                squares[i].style.backgroundColor = "#beeaa5";
+                squares[i].style.backgroundColor = "#33ccff";
             else if (squares[i].innerHTML == 2048)
-                squares[i].style.backgroundColor = "#d7d4f0";
+                squares[i].style.backgroundColor = "#9933ff";
         }
     }
 

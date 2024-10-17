@@ -1,5 +1,5 @@
 body {
-    background-color: #faf8ef;
+    background-color: var(--background-dark);
     display: flex;
     justify-content: center;
     font-family: "Clear Sans", Helvetica, serif;
@@ -8,12 +8,13 @@ body {
 h1 {
     font-size: 80px;
     line-height: 0.7;
-    color: #776e65;
+    color: var(--text-color-neon);
     margin: 0;
 }
 h2,
 p {
     margin: 0;
+    color: var(--playcard-border);
 }
 .container {
     width: 468px;
@@ -31,8 +32,8 @@ p {
     flex-wrap: wrap;
     width: 456px;
     height: 456px;
-    background-color: #bbada0;
-    border: 7px solid #bbada0;
+    background-color: var(--play-card-color);
+    border: 7px solid var(--playcard-border);
     border-radius: 6px;
     margin-top: 20px;
 }
@@ -42,8 +43,8 @@ p {
     height: 100px;
     margin: 7px;
     border-radius: 3px;
-    background-color: #eee4da;
-    color: #afa192;
+    background-color: var(--background-dark);
+    color: var(--number-color);
     font-weight: bold;
     text-align: center;
     font-size: 60px;
@@ -54,9 +55,11 @@ p {
     text-align: center;
     width: 70px;
     height: 60px;
+    padding-top: 5px;
     border-radius: 3px;
-    background-color: #8f7a66;
-    color: #ffff;
+    border: 2px solid var(--score-color);
+    background-color: var(--score-container);
+    color: var(--score-color);
 }
 #score {
     font-size: 30px;
@@ -64,3 +67,26 @@ p {
 .score-title {
     font-size: 16px;
 }
+:root {
+    /* Background and text colors */
+    --background-dark: #1a1a1a; 
+    --text-color-neon: #00ffcc; 
+    --play-card-color: #222222; 
+    --playcard-border: #ff007f; 
+    --score-container: #333333; 
+    --score-color: #00ffcc; 
+    --number-color: #0e0d0d;
+
+    /* Neon tile colors */
+    --1: #00ffaa; 
+    --2: #ff007f; 
+    --3: #ffcc00; 
+    --4: #ff5733; 
+    --5: #ff33ff; 
+    --6: #33ffcc; 
+    --7: #ff5050; 
+    --8: #ffcc33; 
+    --9: #aaff00; 
+    --10: #66ff66; 
+    --11: #33ccff; 
+    --12: #9933ff; 
