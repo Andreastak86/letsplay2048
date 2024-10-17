@@ -67,26 +67,44 @@ p {
 .score-title {
     font-size: 16px;
 }
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#new-game {
+    border-radius: 20px;
+    background-color: var(--score-color);
+    color: var(--playcard-border);
+    padding: 10px 10px;
+    margin: 10px 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
 :root {
     /* Background and text colors */
-    --background-dark: #1a1a1a; 
-    --text-color-neon: #00ffcc; 
-    --play-card-color: #222222; 
-    --playcard-border: #ff007f; 
-    --score-container: #333333; 
-    --score-color: #00ffcc; 
+    --background-dark: #1a1a1a;
+    --text-color-neon: #00ffcc;
+    --play-card-color: #222222;
+    --playcard-border: #ff007f;
+    --score-container: #333333;
+    --score-color: #00ffcc;
     --number-color: #0e0d0d;
 
     /* Neon tile colors */
-    --1: #00ffaa; 
-    --2: #ff007f; 
-    --3: #ffcc00; 
-    --4: #ff5733; 
-    --5: #ff33ff; 
-    --6: #33ffcc; 
-    --7: #ff5050; 
-    --8: #ffcc33; 
-    --9: #aaff00; 
-    --10: #66ff66; 
-    --11: #33ccff; 
-    --12: #9933ff; 
+    --1: #00ffaa;
+    --2: #ff007f;
+    --3: #ffcc00;
+    --4: #ff5733;
+    --5: #ff33ff;
+    --6: #33ffcc;
+    --7: #ff5050;
+    --8: #ffcc33;
+    --9: #aaff00;
+    --10: #66ff66;
+    --11: #33ccff;
+    --12: #9933ff;
+}

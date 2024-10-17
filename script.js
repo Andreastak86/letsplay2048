@@ -2,14 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const gridDisplay = document.querySelector(".grid");
     const scoreDisplay = document.querySelector("#score");
     const resultDisplay = document.querySelector("#result");
+    const newGameButton = document.querySelector("#new-game");
     const width = 4;
     let squares = [];
     let score = 0;
     let hasWon = false;
 
     // Create the playing board
-
     function createBoard() {
+        gridDisplay.innerHTML = ""; // Clear the grid before creating a new one
+        squares = []; // Reset the squares array
         for (let i = 0; i < width * width; i++) {
             const square = document.createElement("div");
             square.innerHTML = 0;
@@ -18,22 +20,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         generate();
         generate();
+        addColours(); // Ensure colors are applied to the initial tiles
     }
-    createBoard();
 
     //generate a new random number
     function generate() {
         let zeros = squares.filter((square) => square.innerHTML == 0);
-        if (zeros.length === 0) {
-            return;
-        }
+        if (zeros.length === 0) return;
 
         const randomNumber = Math.floor(Math.random() * zeros.length);
-        if (zeros[randomNumber]) {
-            zeros[randomNumber].innerHTML = 2;
-        }
+        zeros[randomNumber].innerHTML = 2;
         checkForGameOver();
     }
+
+    function startNewGame() {
+        const isConfirmed = confirm(
+            "Are you sure you want to start a new game? Current progress will be lost."
+        );
+
+        if (isConfirmed) {
+            score = 0;
+            scoreDisplay.innerHTML = score;
+            resultDisplay.innerHTML = "";
+            hasWon = false;
+            document.addEventListener("keydown", control);
+            createBoard();
+        }
+    }
+
+    newGameButton.addEventListener("click", startNewGame);
+
+    createBoard();
 
     function moveRight() {
         for (let i = 0; i < 16; i++) {
