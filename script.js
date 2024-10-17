@@ -2,14 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const gridDisplay = document.querySelector(".grid");
     const scoreDisplay = document.querySelector("#score");
     const resultDisplay = document.querySelector("#result");
+    const newGameButton = document.querySelector("#new-game");
     const width = 4;
     let squares = [];
     let score = 0;
     let hasWon = false;
 
     // Create the playing board
-
     function createBoard() {
+        gridDisplay.innerHTML = ""; // Clear the grid before creating a new one
+        squares = []; // Reset the squares array
         for (let i = 0; i < width * width; i++) {
             const square = document.createElement("div");
             square.innerHTML = 0;
@@ -18,22 +20,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         generate();
         generate();
+        addColours(); // Ensure colors are applied to the initial tiles
     }
-    createBoard();
 
     //generate a new random number
     function generate() {
         let zeros = squares.filter((square) => square.innerHTML == 0);
-        if (zeros.length === 0) {
-            return;
-        }
+        if (zeros.length === 0) return;
 
         const randomNumber = Math.floor(Math.random() * zeros.length);
-        if (zeros[randomNumber]) {
-            zeros[randomNumber].innerHTML = 2;
-        }
+        zeros[randomNumber].innerHTML = 2;
         checkForGameOver();
     }
+
+    function startNewGame() {
+        const isConfirmed = confirm(
+            "Are you sure you want to start a new game? Current progress will be lost."
+        );
+
+        if (isConfirmed) {
+            score = 0;
+            scoreDisplay.innerHTML = score;
+            resultDisplay.innerHTML = "";
+            hasWon = false;
+            document.addEventListener("keydown", control);
+            createBoard();
+        }
+    }
+
+    newGameButton.addEventListener("click", startNewGame);
+
+    createBoard();
 
     function moveRight() {
         for (let i = 0; i < 16; i++) {
@@ -300,29 +317,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 continue;
             }
             if (squares[i].innerHTML == 0)
-                squares[i].style.backgroundColor = "#afa192";
+                squares[i].style.backgroundColor = "#00ffaa";
             else if (squares[i].innerHTML == 2)
-                squares[i].style.backgroundColor = "#eee4da";
+                squares[i].style.backgroundColor = "#ff007f";
             else if (squares[i].innerHTML == 4)
-                squares[i].style.backgroundColor = "#ede0c8";
+                squares[i].style.backgroundColor = "#ffcc00";
             else if (squares[i].innerHTML == 8)
-                squares[i].style.backgroundColor = "#f2b179";
+                squares[i].style.backgroundColor = "#ff5733";
             else if (squares[i].innerHTML == 16)
-                squares[i].style.backgroundColor = "#ffcea4";
+                squares[i].style.backgroundColor = "#ff33ff";
             else if (squares[i].innerHTML == 32)
-                squares[i].style.backgroundColor = "#e8c064";
+                squares[i].style.backgroundColor = "#33ffcc";
             else if (squares[i].innerHTML == 64)
-                squares[i].style.backgroundColor = "#ffab6e";
+                squares[i].style.backgroundColor = "#ff5050";
             else if (squares[i].innerHTML == 128)
-                squares[i].style.backgroundColor = "#fd9982";
+                squares[i].style.backgroundColor = "#ffcc33";
             else if (squares[i].innerHTML == 256)
-                squares[i].style.backgroundColor = "#ead79c";
+                squares[i].style.backgroundColor = "#aaff00";
             else if (squares[i].innerHTML == 512)
-                squares[i].style.backgroundColor = "#76daff";
+                squares[i].style.backgroundColor = "#66ff66";
             else if (squares[i].innerHTML == 1024)
-                squares[i].style.backgroundColor = "#beeaa5";
+                squares[i].style.backgroundColor = "#33ccff";
             else if (squares[i].innerHTML == 2048)
-                squares[i].style.backgroundColor = "#d7d4f0";
+                squares[i].style.backgroundColor = "#9933ff";
         }
     }
 
